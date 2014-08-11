@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Take Picture</tile>
+    <script src="cordova-2.5.0.js"></script>
     <script>
       var Global_name,Global_path;
 
@@ -59,6 +60,9 @@
     </script>
   </head>
   <body>
+    <span id="camera_status"></span> <br/>
+    <p> <img  src="img/tv_ad.jpg" width="215" id="camera_image" style="width:auto;height:300px;" /> </p>
+    <div id="capture_status" style="color:#FFFF00"></div>
     <a href="#" onClick="captureImage();">
     <a href="#" id="upload" onClick="uploadPicture();">
   </body>
