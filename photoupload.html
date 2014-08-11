@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Take Picture</tile>
+    <script>
+      var Global_name,Global_path;
+
+      function captureImage() 
+      {
+        document.getElementById('capture_status').innerHTML ="";
+        navigator.device.capture.captureImage(
+        function (mediaFiles)
+        {
+          mediaFile = mediaFiles[0];
+          Global_name = mediaFile.name;
+          Global_path = mediaFile.fullPath;
+          document.getElementById('upload').style.display="block";
+          var img = document.getElementById('camera_image');
+          img.style.visibility = "visible";
+          img.style.display = "block";
+  
+          img.src = mediaFile.fullPath;
+          image_path=mediaFile.fullPath;
+        },
+        function (e)
+        {
+          console.log("Error getting picture: " + e);
+          document.getElementById('capture_status').innerHTML = "Error getting picture.";
+        },
+        { limit: 1 },{ quality: 50 });
+      }
+
+      // Upload files to server
+      function uploadPicture()
+      {
+          document.getElementById('capture_status').innerHTML="Please wait image is uploading";
+          var ft = new FileTransfer(),
+          path = Global_path,
+          name = Global_name;
+          var url="http://server.com/photoupload/filename.php";
+          ft.upload(path,url,
+          function(result)
+          {
+            console.log('Upload success: ' + result.responseCode);
+            navigator.notification.alert("Image Uploading Sucessfully");
+            document.getElementById('capture_status').innerHTML="";
+            var img = document.getElementById('camera_image');
+            img.style.visibility = "visible";
+            img.style.display = "block";
+            img.src ="img/tv_ad.jpg";
+            console.log(result.bytesSent + ' bytes sent');
+          },
+          function(error)
+          {
+            console.log('Error uploading file ' + path + ': ' + error.code);
+            document.getElementById('capture_status').innerHTML='Error uploading file image';// + path + ': ' + error.code;
+          },
+          { fileName: name });
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#" onClick="captureImage();">
+    <a href="#" id="upload" onClick="uploadPicture();">
+  </body>
+</html>
