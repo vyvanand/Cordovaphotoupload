@@ -2,7 +2,7 @@
   $path = realpath($_SERVER["DOCUMENT_ROOT"]);
   include("mysql_connection.php");
   $current_date=date("Y-m-d");
-  $dirname = "$path/client_upload/assets/user_uploaded_images/"; 
+  $dirname = "$path/photoupload/assets/user_uploaded_images/"; 
 	if ($_FILES)
 	{
 	    print_r($_FILES);	
